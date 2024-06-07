@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Підрозділи</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <h1>Підрозділи</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Найменування підрозділу</th>
+      </tr>
+    </thead>
+    <tbody id="unitsTableBody">
+      <!-- Дані будуть вставлені через JavaScript -->
+    </tbody>
+  </table>
+  <script>
+    fetch('http://localhost:3001/units')
+      .then(response => response.json())
+      .then(data => {
+        const tableBody = document.getElementById('unitsTableBody');
+        data.forEach(unit => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${unit.ID}</td>
+            <td>${unit.UnitName}</td>
+          `;
+          tableBody.appendChild(row);
+        });
+      });
+  </script>
+</body>
+</html>

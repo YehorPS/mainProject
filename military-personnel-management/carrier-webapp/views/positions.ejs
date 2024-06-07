@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Посади</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <h1>Посади</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Найменування посади</th>
+        <th>ID військовослужбовця</th>
+        <th>ID підрозділу</th>
+      </tr>
+    </thead>
+    <tbody id="positionsTableBody">
+      <!-- Дані будуть вставлені через JavaScript -->
+    </tbody>
+  </table>
+  <script>
+    fetch('http://localhost:3001/positions')
+      .then(response => response.json())
+      .then(data => {
+        const tableBody = document.getElementById('positionsTableBody');
+        data.forEach(position => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${position.ID}</td>
+            <td>${position.PositionName}</td>
+            <td>${position.PersonnelID}</td>
+            <td>${position.UnitID}</td>
+          `;
+          tableBody.appendChild(row);
+        });
+      });
+  </script>
+</body>
+</html>
